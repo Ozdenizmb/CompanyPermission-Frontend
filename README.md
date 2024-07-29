@@ -1,6 +1,6 @@
 # Access the project's back-end from the following link:
 
-https://github.com/Ozdenizmb/PersonalWebSite-Frontend
+https://github.com/Ozdenizmb/CompanyPermission
 
 # Getting Started with Create React App
 
