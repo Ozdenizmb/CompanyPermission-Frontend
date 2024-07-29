@@ -45,7 +45,7 @@ export const loginUserHandler = (creds) => {
             surname : response.data.lastName,
             password : creds.password,
             imageUrl : response.data.imageUrl,
-            role: response.data.role
+            statuses: response.data.statuses
         }     
         dispatch(loginUserSuccess(loginState));
 
@@ -72,7 +72,8 @@ export const loginAdminHandler = (creds) => {
             surname : response.data.lastName,
             password : creds.password,
             imageUrl : response.data.imageUrl,
-            role: response.data.role
+            role: response.data.role,
+            statuses: response.data.statuses
         }     
         dispatch(loginUserSuccess(loginState));
 

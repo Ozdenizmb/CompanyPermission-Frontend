@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBProgress, MDBProgressBar, MDBIcon, MDBListGroup, MDBListGroupItem } from 'mdb-react-ui-kit';
-import { getUserAndAdmin } from '../../api/apiCalls';
+import { getAdmin, getUser } from '../../api/apiCalls';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import Spinner from '../../components/Spinner';
 import profile from '../../images/profile.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarPlus, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 import { logoutSuccess } from '../../redux/authActions';
-import { useDispatch } from 'react-redux';
 
 const UserPage = () => {
 
     const [user, setUser] = useState({});
     const [userNotFound, setUserNotFound] = useState(false);
+
+    const { storeEmail, statuses } = useSelector((store) => ({
+        storeEmail: store.email,
+        statuses: store.statuses
+    }));
 
     const { email } = useParams();
     const dispatch = useDispatch();
@@ -24,10 +29,19 @@ const UserPage = () => {
 
     const loadUser = async (email) => {
         try {
-            console.log(email)
-            const response = await getUserAndAdmin(email);
-            setUser(response.data);
-            console.log(response.data);
+            if(statuses === "ADMIN" && email === storeEmail) {
+                const response = await getAdmin(email);
+                setUser(response.data);
+            }
+            else if(statuses === "ADMIN" && email !== storeEmail) {
+                const response = await getUser(email);
+                setUser(response.data);
+            }
+            else {
+                const response = await getUser(email);
+                setUser(response.data);
+            }
+            
         } catch(error) {
             setUserNotFound(true);
         }
@@ -84,7 +98,7 @@ const UserPage = () => {
                         className="rounded-circle"
                         style={{ width: '150px' }}
                         fluid />
-                        <p className="text-muted mb-1"><i>{user.profession || "Belirtilmedi"}</i></p>
+                        <p className="text-muted mb-1"><i>{user.department || "Belirtilmedi"}</i></p>
                         <h4 className="text-muted mb-4">{user.firstName} {user.lastName}</h4>
                         <div className="d-flex justify-content-center mb-2">
                         <Link to={`/profile/update/${email}`} className="btn btn-primary">Güncelle</Link>
@@ -158,7 +172,7 @@ const UserPage = () => {
                             <MDBCardText>Rol</MDBCardText>
                         </MDBCol>
                         <MDBCol sm="9">
-                            <MDBCardText className="text-muted">{user.role}</MDBCardText>
+                            <MDBCardText className="text-muted">{user.role || user.department || "Belirtilmedi"}</MDBCardText>
                         </MDBCol>
                         </MDBRow>
                         <hr />

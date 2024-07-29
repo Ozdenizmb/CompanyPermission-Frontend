@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { logoutSuccess } from '../redux/authActions';
 import skyForTopbar from '../images/sky.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faInfoCircle, faProjectDiagram, faPhone, faSignInAlt, faUserPlus, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faPhone, faSignInAlt, faUserPlus, faSignOutAlt, faUmbrellaBeach } from '@fortawesome/free-solid-svg-icons';
 import '../style/Components.css';
 import ProfileImage from './ProfileImage';
 
@@ -47,10 +47,7 @@ const TopBar = () => {
                         <Link to="/"><FontAwesomeIcon icon={faHome} className="me-2" />Anasayfa</Link>
                     </li>
                     <li>
-                        <Link to="/about"><FontAwesomeIcon icon={faInfoCircle} className="me-2" />Hakkımda</Link>
-                    </li>
-                    <li>
-                        <Link to="#services"><FontAwesomeIcon icon={faProjectDiagram} className="me-2" />Projeler</Link>
+                        <Link to="#services"><FontAwesomeIcon icon={faUmbrellaBeach} className="me-2" />İzinler</Link>
                     </li>
                     <li>
                         <Link to="/contact"><FontAwesomeIcon icon={faPhone} className="me-2" />İletişim</Link>

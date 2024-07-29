@@ -5,7 +5,6 @@ import { Route, Routes, Navigate, BrowserRouter } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 
 import Home from './views/Home/Home';
-import About from './views/About/About';
 import SignUp from './views/SignUp/SignUp';
 import TopBar from './components/TopBar';
 import Contact from './views/Contact/Contact'
@@ -36,8 +35,6 @@ const App = () => {
           )}
 
           <Route path="/signup" element={<SignUp />} />
-
-          <Route path="/about" element={<About />} />
 
           <Route path="/contact" element={<Contact />} />
 

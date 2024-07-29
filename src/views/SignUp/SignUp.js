@@ -68,11 +68,8 @@ const Login = () => {
       password: password
     };
 
-    const formData = new FormData();
-    formData.append('userCreateDto', new Blob([JSON.stringify(body)], {type: 'application/json'}));
-
     try {
-      await dispatch(signUpUserHandler(formData));
+      await dispatch(signUpUserHandler(body));
       toast.success("Kayıt Başarıyla Gerşekleşti!");
 
       setFirstName("");
@@ -95,11 +92,8 @@ const Login = () => {
       password: password,
     };
 
-    const formData = new FormData();
-    formData.append('userCreateDto', new Blob([JSON.stringify(body)], {type: 'application/json'}));
-
     try {
-      await dispatch(signUpAdminHandler(formData, adminKey));
+      await dispatch(signUpAdminHandler(body, adminKey));
       toast.success("Kayıt Başarıyla Gerşekleşti!");
 
       setFirstName("");
@@ -118,7 +112,7 @@ const Login = () => {
         <div className="forms-container">
           <div className="signin-signup">
             <form action="#" className="sign-in-form">
-              <h2 className="title">Kullanıcı Olarak Kayıt Ol</h2>
+              <h2 className="title">Çalışan Olarak Kayıt Ol</h2>
               <div className="input-field">
                 <i className="fas fa-user">
                   <FontAwesomeIcon icon={faUser}/>
@@ -215,9 +209,9 @@ const Login = () => {
           </div>
           <div className="panel right-panel">
             <div className="content">
-              <h3>Kullanıcı Kaydı</h3>
+              <h3>Çalışan Kaydı</h3>
               <p>
-                Kullanıcı olarak kayıt olabilmek için aşağıdaki butona tıklayarak bir diğer sayfaya geçiş yapabilirsiniz.
+                Çalışan olarak kayıt olabilmek için aşağıdaki butona tıklayarak bir diğer sayfaya geçiş yapabilirsiniz.
               </p>
               <button className="btn transparent" onClick={handleSignInClick}>
                 Kayıt Ol

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Input from './Input';
-import { getUserAndAdmin, updateAdmin, updateUser } from '../api/apiCalls';
+import { getAdmin, getUser, updateAdmin, updateUser } from '../api/apiCalls';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Spinner from '../components/Spinner';
@@ -18,19 +18,21 @@ const UserUpdateProfile = () => {
     const [updatedLastName, setUpdatedLastName] = useState();
     const [updatedBiography, setUpdatedBiography] = useState();
     const [updatedPhoneNumber, setUpdatedPhoneNumber] = useState();
-    const [updatedProfession, setUpdatedProfession] = useState();
+    const [updatedDepartment, setUpdatedDepartment] = useState();
     const [updatedBirthday, setUpdatedBirthday] = useState();
     const [UpdatedLogoFile, setUpdatedLogoFile] = useState();
+    const [updatedRole, setUpdatedRole] = useState();
     const [newImage, setNewImage] = useState();
     const [adminKey, setAdminKey] = useState();
 
     const [error, setError] = useState(null);
 
-    const { id, email, password, role } = useSelector((store) => ({
+    const { id, email, password, role, statuses } = useSelector((store) => ({
         id: store.id,
         email: store.email,
         password: store.password,
-        role: store.role
+        role: store.role,
+        statuses: store.statuses
     }));
 
     const pendingApiCall = useApiProgress('post','/api/v1/JobPosting');
@@ -43,13 +45,19 @@ const UserUpdateProfile = () => {
 
     const loadUser = async (email) => {
         try {
-            const response = await getUserAndAdmin(email);
+            let response;
+            if(statuses === "ADMIN") {
+                response = await getAdmin(email);
+            }
+            else {
+                response = await getUser(email);
+            }
             setUser(response.data);
             setUpdatedFirstName(response.data.firstName);
             setUpdatedLastName(response.data.lastName);
             setUpdatedBiography(response.data.biography);
             setUpdatedPhoneNumber(response.data.phoneNumber);
-            setUpdatedProfession(response.data.profession);
+            setUpdatedDepartment(response.data.department);
             setUpdatedBirthday(response.data.birthday);
         } catch(error) {
         }
@@ -71,14 +79,17 @@ const UserUpdateProfile = () => {
         if(name === "updatePhoneNumber") {
             setUpdatedPhoneNumber(value);
         }
-        if(name === "updateProfession") {
-            setUpdatedProfession(value);
+        if(name === "updateDepartment") {
+            setUpdatedDepartment(value);
         }
         if(name === "updateBirthday") {
             setUpdatedBirthday(value);
         }
         if(name === "adminKey") {
             setAdminKey(value);
+        }
+        if(name === "updateRole") {
+            setUpdatedRole(value);
         }
 
         setError(null);
@@ -104,27 +115,39 @@ const UserUpdateProfile = () => {
     const onClickSave = async (event) => {
         event.preventDefault();
 
-        const body = {
-            firstName: updatedFirstName,
-            lastName: updatedLastName,
-            password,
-            biography: updatedBiography,
-            phoneNumber: updatedPhoneNumber,
-            profession: updatedProfession,
-            birthday: updatedBirthday
-        };
-
-        const formData = new FormData();
-        formData.append('userUpdateDto', new Blob([JSON.stringify(body)], {type: 'application/json'}));
-        formData.append('file', UpdatedLogoFile);
-
         try {
             let response;
 
-            if(role === "ADMIN") {
+            if(statuses === "ADMIN") {
+                const body = {
+                    firstName: updatedFirstName,
+                    lastName: updatedLastName,
+                    password,
+                    phoneNumber: updatedPhoneNumber,
+                    role: updatedRole
+                };
+        
+                const formData = new FormData();
+                formData.append('adminUpdateDto', new Blob([JSON.stringify(body)], {type: 'application/json'}));
+                formData.append('file', UpdatedLogoFile);
+
                 response = await updateAdmin(id, formData, adminKey);
             }
             else {
+                const body = {
+                    firstName: updatedFirstName,
+                    lastName: updatedLastName,
+                    password,
+                    biography: updatedBiography,
+                    phoneNumber: updatedPhoneNumber,
+                    department: updatedDepartment,
+                    birthday: updatedBirthday
+                };
+        
+                const formData = new FormData();
+                formData.append('employeeUpdateDto', new Blob([JSON.stringify(body)], {type: 'application/json'}));
+                formData.append('file', UpdatedLogoFile);
+
                 response = await updateUser(id, formData);
             }
 
@@ -166,17 +189,27 @@ const UserUpdateProfile = () => {
 
                     <Input name="updateLastName" label="Soyad" type="text" onChangeVeriables={onChange} value={updatedLastName}/>
 
-                    <Input name="updateBiography" label="Biyografi" type="text" onChangeVeriables={onChange} value={updatedBiography}/>
-
+                    {statuses !== "ADMIN" &&
+                        <Input name="updateBiography" label="Biyografi" type="text" onChangeVeriables={onChange} value={updatedBiography}/>
+                    }
+                    
                     <Input name="updatePhoneNumber" label="Telefon Numarası" type="text" onChangeVeriables={onChange} value={updatedPhoneNumber}/>
 
-                    <Input name="updateProfession" label="Meslek" type="text" onChangeVeriables={onChange} value={updatedProfession}/>
+                    {statuses !== "ADMIN" &&
+                        <Input name="updateDepartment" label="Departman" type="text" onChangeVeriables={onChange} value={updatedDepartment}/>
+                    }
 
-                    <Input name="updateBirthday" label="Doğum Günü" onChangeVeriables={onChange} type="date" value={formatDate(updatedBirthday)}/>
+                    {statuses === "ADMIN" &&
+                        <Input name="updateRole" label="Rol" type="text" onChangeVeriables={onChange} value={updatedRole}/>
+                    }
+                    
+                    {statuses !== "ADMIN" &&
+                        <Input name="updateBirthday" label="Doğum Günü" onChangeVeriables={onChange} type="date" value={formatDate(updatedBirthday)}/>
+                    }
 
                     <Input name="updateImage" label="Resim" onChangeVeriables={onChangeFile} type="file"/>
 
-                    {role == "ADMIN" &&
+                    {statuses === "ADMIN" &&
                         <Input name="adminKey" label="Admin Key" type="text" onChangeVeriables={onChange} placeholder="Admin Key Giriniz"/>
                     }
 

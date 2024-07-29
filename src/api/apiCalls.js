@@ -1,33 +1,29 @@
 import axios from "axios";
 
 export const signUpUser = (body) => {
-    return axios.post("/api/v1/users/signup/user", body, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-    });
+    return axios.post("/api/v1/employee/signup", body);
 }
 
 export const loginUser = creds => {
     const { email, password } = creds;
-    return axios.get(`/api/v1/users/login/user/${email}?password=${password}`);
+    return axios.get(`/api/v1/employee/login/${email}?password=${password}`);
 }
 
 export const signUpAdmin = (body, adminKey) => {
-    return axios.post("/api/v1/users/signup/admin", body, {headers: {key: adminKey}}, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-    });
+    return axios.post("/api/v1/admins/signup", body, {headers: {key: adminKey}});
 }
 
 export const loginAdmin = (creds) => {
     const { email, password, adminKey } = creds;
-    return axios.get(`/api/v1/users/login/admin/${email}?password=${password}`, {headers: {key: adminKey}});
+    return axios.get(`/api/v1/admins/login/${email}?password=${password}`, {headers: {key: adminKey}});
 }
 
-export const getUserAndAdmin = (email) => {
-    return axios.get(`/api/v1/users/get/email/${email}`);
+export const getUser = (email) => {
+    return axios.get(`/api/v1/employee/get?email=${email}`);
+}
+
+export const getAdmin = (email) => {
+    return axios.get(`/api/v1/admins/get/admin/${email}`);
 }
 
 export const setAuthorizationHeader = (userData) => {
@@ -44,9 +40,9 @@ export const setAuthorizationHeader = (userData) => {
 };
 
 export const updateUser = (id, form) => {
-    return axios.put(`/api/v1/users/update/user/${id}`, form);
+    return axios.put(`/api/v1/employee/update/${id}`, form);
 }
 
 export const updateAdmin = (id, form, adminKey) => {
-    return axios.put(`/api/v1/users/update/admin/${id}`, form, {headers: {key: adminKey}});
+    return axios.put(`/api/v1/admins/update/${id}`, form, {headers: {key: adminKey}});
 }

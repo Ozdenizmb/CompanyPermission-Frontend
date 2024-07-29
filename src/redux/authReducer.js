@@ -6,7 +6,8 @@ const defaultState = {
     email : undefined,
     password : undefined,
     imageUrl : undefined,
-    role: undefined
+    role: undefined,
+    statuses: undefined
 }
 
 const authReducer = (state = { ...defaultState }, action) => {
