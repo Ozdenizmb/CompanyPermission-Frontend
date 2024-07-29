@@ -31,7 +31,7 @@ const TopBar = () => {
             <nav>
                 <div className="container">
                     <Link to="/" className="brand-name">
-                        <h3 className="logo">baran<span>ozdeniz</span></h3>
+                        <h3 className="logo">Kafein<span>Technology Solutions</span></h3>
                     </Link>
                     <div className="hamburger-menu" onClick={toggleMenu}>
                         <div className="bar"></div>

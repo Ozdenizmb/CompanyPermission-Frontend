@@ -1,7 +1,6 @@
-// Home.js
 import React, { useEffect } from 'react';
 import './Home.css';
-import myProfilePhoto from '../../images/myProfilePhoto.jpg';
+import kafeinLogoLight from '../../images/kafein-logo-light.svg';
 import mountain1 from '../../images/mountain1.png';
 import mountain2 from '../../images/mountain2.png';
 import mountain3 from '../../images/mountain3.png';
@@ -56,7 +55,7 @@ const Home = () => {
     <div id="home">
       <header>
 
-        <h1 className="big-title translate" data-speed="0.1">Mehmet Baran Özdeniz</h1>
+        <h1 className="big-title translate" data-speed="0.1">Kafein Technology Solutions</h1>
 
         <img src={person} className="person translate" data-speed="-0.25" alt="" />
         <img src={mountain1} className="mountain1 translate" data-speed="-0.2" alt="" />
@@ -71,14 +70,14 @@ const Home = () => {
         <div className="container">
           <div className="content opacity">
             <h3 className="title">
-              Hakkımda
+              Şirket Hakkında
               <div className="border"></div>
             </h3>
-            <p className="text">Yazılım mühendisliği alanında kendimi geliştirmek ve yeni teknolojileri öğrenmek konusunda büyük bir tutkum var. Java ve web programlama bilgimi projelerimde uygulayarak deneyim kazanıyorum. Öğrenmeye açık yapım sayesinde hızla uyum sağlıyor ve sürekli kendimi geliştiriyorum. 2024 yılında İstanbul Beykent Üniversitesi Yazılım Mühendisliği bölümünden mezun olarak kariyer yolculuğuma başladım ve amacım, öğrendiklerimi pratik projelerle pekiştirip yazılım dünyasına değer katmak ve yenilikleri takip etmeye devam etmektir.</p>
+            <p className="text">Geliştirdiğimiz mobil ödeme sistemleri, e-ticaret ve telekomünikasyon projeleri bugün Türkiye’nin en büyük kurumlarında ve başka ülkelerde de kullanılan Kafein Teknoloji olarak, bizi sektörün öncüleri arasına konumlayan yolculuğumuza 2005 yılında başladık. Tam on yedi yıldır teknoloji, bankacılık, telekom, turizm, hizmet, perakende ve sigortacılık sektörlerinde bulunan ulusal ve global müşterilerinin teknoloji yazılımı ve yönetimi alanındaki ihtiyaçlarına cevap veriyoruz.</p>
           </div>
 
           <div className="imgContainer opacity">
-            <img className="my-pp" src={myProfilePhoto} alt="" />
+            <img className="my-pp" src={kafeinLogoLight} alt="" style={{ width:"300px", height:"250px", backgroundColor: '#eee' }} />
           </div>
         </div>
       </section>
