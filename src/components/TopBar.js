@@ -47,7 +47,7 @@ const TopBar = () => {
                         <Link to="/"><FontAwesomeIcon icon={faHome} className="me-2" />Anasayfa</Link>
                     </li>
                     <li>
-                        <Link to="#services"><FontAwesomeIcon icon={faUmbrellaBeach} className="me-2" />İzinler</Link>
+                        <Link to="/permission"><FontAwesomeIcon icon={faUmbrellaBeach} className="me-2" />İzinler</Link>
                     </li>
                     <li>
                         <Link to="/contact"><FontAwesomeIcon icon={faPhone} className="me-2" />İletişim</Link>
