@@ -13,6 +13,7 @@ import Login from './views/Login/Login';
 import UserUpdateProfile from './components/UserUpdateProfile';
 import Permission from './views/Permission/Permission';
 import PermissionCreate from './components/PermissionCreate';
+import PermissionUpdate from './components/PermissionUpdate';
 
 const App = () => {
 
@@ -46,7 +47,9 @@ const App = () => {
 
           <Route path="/permission" element={<Permission />} />
 
-          <Route path="/create/permission" element={<PermissionCreate />} />
+          <Route path="/permission/create" element={<PermissionCreate />} />
+
+          <Route path="/permission/update/:id" element={<PermissionUpdate />} />
 
           <Route path="/" element={<Navigate to="/home" />} />
         </Routes>

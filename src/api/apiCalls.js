@@ -63,10 +63,22 @@ export const createPermission = (body) => {
     return axios.post("/api/v1/permissions", body);
 }
 
+export const getPermission = (id) => {
+    return axios.get(`/api/v1/permissions/get/${id}`);
+}
+
 export const getAllPermission = (pageNumber, pageSize, pageSort) => {
     return axios.get(`/api/v1/permissions/get/all?page=${pageNumber}&size=${pageSize}&sort=${pageSort}`);
 }
 
 export const getAllPermissionForEmployee = (employeeId, pageNumber, pageSize, pageSort) => {
     return axios.get(`/api/v1/permissions/get/employee/${employeeId}?page=${pageNumber}&size=${pageSize}&sort=${pageSort}`);
+}
+
+export const updatePermission = (id, body) => {
+    return axios.put(`/api/v1/permissions/update/${id}`, body);
+}
+
+export const deletePermission = (id) => {
+    return axios.delete(`/api/v1/permissions/delete/${id}`);
 }
