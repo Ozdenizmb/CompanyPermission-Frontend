@@ -6,8 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import Spinner from '../components/Spinner';
 import profile from '../images/profile.png';
 import { useApiProgress } from '../shared/ApiProgress';
-import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { updateUserSuccess } from '../redux/authActions';
 
 const UserUpdateProfile = () => {
