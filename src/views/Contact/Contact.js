@@ -3,6 +3,8 @@ import './Contact.css';
 import { useSelector } from 'react-redux';
 import { createContact } from '../../api/apiCalls';
 import { ToastContainer, toast } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarker, faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 const Contact = () => {
 
@@ -61,33 +63,74 @@ const Contact = () => {
     }
 
     return ( 
-        <div id="contact">
-            <div className="container pt-5 pb-5">
-                <div className="card p-5 shadow bg-gray-color">
-                    <h2>İletişim Formu</h2>
-                    <form>
-                        <div className="mb-3">
-                        <label htmlFor="name" className="form-label">İsim</label>
-                        <input type="text" name="name" className="form-control" id="name" placeholder="İsminizi girin" onChange={onChange} value={name} />
+        <div id='contact' className="container-fluid row justify-content-center align-items-center">
+            <header className="text-center mb-5 col-md-12">
+                <h1 className="text-center mb-4">BİZE ULAŞIN</h1>
+                <div className="title-wrapper">
+                </div>
+            </header>
+            <div className="col-md-12 ps-4">
+                <div className="row d-flex justify-content-center align-items-center">
+                    <div className="col-md-4">
+                        <div className="content-form ps-5 contact-text-style">
+                            <section className="contact-info d-flex align-items-center mb-4">
+                                <div className="icon-background bg-dark text-white">
+                                    <FontAwesomeIcon icon={faMapMarker} size="2x" />
+                                </div>
+                                <div>
+                                    <h2>Adres</h2>
+                                    <p>
+                                      YTÜ-Davutpaşa Kampüsü A2 <br />
+                                      34220 <br />
+                                      Esenler/İstanbul
+                                    </p>
+                                </div>
+                            </section>
+                            <section className="contact-info d-flex align-items-center mb-4">
+                                <div className="icon-background bg-dark text-white">
+                                    <FontAwesomeIcon icon={faPhone} size="2x" />
+                                </div>
+                                <div>
+                                    <h2>Telefon</h2>
+                                    <p>0(212) 924 20 30</p>
+                                </div>
+                            </section>
+                            <section className="contact-info d-flex align-items-center mb-4">
+                                <div className="icon-background bg-dark text-white">
+                                    <FontAwesomeIcon icon={faEnvelope} size="2x" />
+                                </div>
+                                <div>
+                                    <h2>E-mail</h2>
+                                    <p>kts@kafein.com.tr</p>
+                                </div>
+                            </section>
                         </div>
-                        <div className="mb-3">
-                        <label htmlFor="email" className="form-label">Email</label>
-                        <input type="email" name="email" className="form-control" id="email" placeholder="Email adresinizi girin" onChange={onChange} value={email} />
+                    </div>
+                    <div className="col-md-8">
+                        <div className="form-wrapper">
+                            <form className="form d-flex flex-column align-items-center offset-md-2">
+                                <div className="input-wrapper mb-3 d-flex">
+                                    <input type="text" className="form-control me-2" placeholder="Adınız" required name="name" onChange={onChange} value={name} />
+                                    <input type="email" className="form-control" placeholder="E-mail" required name="email" onChange={onChange} value={email} />
+                                </div>
+                                <div className="input-wrapper mb-3 d-flex">
+                                    <input type="text" className="form-control" placeholder="Konu" style={{width:'413px'}} required name="subject" onChange={onChange} value={subject} />
+                                </div>
+                                <div className="input-wrapper mb-3 d-flex">
+                                    <textarea className="form-control col" style={{ width: '413px', height:"250px" }} placeholder="Mesajınızı Yazınız...." required name="message" onChange={onChange} value={message}></textarea>
+                                </div>
+                                <div className="button-wrapper mt-3" >
+                                    <input type="submit" name="submit" className="btn btn-primary" value="Gönder" style= {{width:'413px'}} disabled={statuses !== "ADMIN" && statuses !== "EMPLOYEE"} onClick={onClick} />
+                                </div>
+                                {(statuses !== "ADMIN" && statuses !== "EMPLOYEE") &&
+                                    <label className="alert alert-info ms-1 mt-4">Mesajınızı iletmek için sisteme Giriş Yapmalısınız!</label>
+                                }
+                                {error != null && <label className="alert alert-danger ms-5">{error}</label> }
+                                
+                        
+                            </form>
                         </div>
-                        <div className="mb-3">
-                        <label htmlFor="subject" className="form-label">Konu</label>
-                        <input type="text" name="subject" className="form-control" id="subject" placeholder="Konu" onChange={onChange} value={subject} />
-                        </div>
-                        <div className="mb-3">
-                        <label htmlFor="message" className="form-label">Mesaj</label>
-                        <textarea className="form-control" name="message" id="message" rows="3" placeholder="Mesajınızı girin" onChange={onChange} value={message} />
-                        </div>
-                        <button type="submit" className="btn btn-primary" disabled={statuses !== "ADMIN" && statuses !== "EMPLOYEE"} onClick={onClick} >Gönder</button>
-                        {(statuses !== "ADMIN" && statuses !== "EMPLOYEE") &&
-                            <label className="alert alert-info ms-5">Mesajınızı iletmek için sisteme Giriş Yapmalısınız!</label>
-                        }
-                        {error != null && <label className="alert alert-danger ms-5">{error}</label> }
-                    </form>
+                    </div>
                 </div>
             </div>
             <ToastContainer />
