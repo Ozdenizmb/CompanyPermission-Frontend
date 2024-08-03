@@ -7,6 +7,7 @@ import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { useApiProgress } from "../shared/ApiProgress";
 import { ToastContainer, toast } from 'react-toastify';
 import { getPermission, updatePermission } from "../api/apiCalls";
+import Spinner from "./Spinner";
 
 const PermissionUpdate = () => {
 
@@ -16,6 +17,7 @@ const PermissionUpdate = () => {
     const [endDate, setEndDate] = useState();
     const [error, setError] = useState(null);
 
+    const pendingApiCallLoad = useApiProgress('get','/api/v1/permissions/get/');
     const pendingApiCall = useApiProgress('put','/api/v1/permissions');
     const navigate = useNavigate();
     const { id } = useParams();
@@ -72,6 +74,12 @@ const PermissionUpdate = () => {
         } catch(error) {
             setError("Error "+ error.response.data.status + ": " + error.response.data.detail);
         }
+    }
+
+    if(pendingApiCallLoad) {
+        return(
+            <Spinner />
+        );
     }
 
     return(

@@ -5,6 +5,7 @@ import { createContact } from '../../api/apiCalls';
 import { ToastContainer, toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarker, faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { useApiProgress } from '../../shared/ApiProgress';
 
 const Contact = () => {
 
@@ -18,6 +19,8 @@ const Contact = () => {
     const { statuses } = useSelector((store) => ({
         statuses: store.statuses
     }));
+
+    const pendingApiCall = useApiProgress('post','/api/v1/contacts/create');
 
     const onChange = (event) => {
         const name = event.target.name;
@@ -120,7 +123,10 @@ const Contact = () => {
                                     <textarea className="form-control col" style={{ width: '413px', height:"250px" }} placeholder="Mesajınızı Yazınız...." required name="message" onChange={onChange} value={message}></textarea>
                                 </div>
                                 <div className="button-wrapper mt-3" >
-                                    <input type="submit" name="submit" className="btn btn-primary" value="Gönder" style= {{width:'413px'}} disabled={statuses !== "ADMIN" && statuses !== "EMPLOYEE"} onClick={onClick} />
+                                    <button name="submit" className="btn btn-primary" style={{width:'413px'}} disabled={statuses !== "ADMIN" && statuses !== "EMPLOYEE"} onClick={onClick}>
+                                    {pendingApiCall ? <span className="spinner-border spinner-border-sm"></span> : ''}
+                                        Gönder
+                                    </button>
                                 </div>
                                 {(statuses !== "ADMIN" && statuses !== "EMPLOYEE") &&
                                     <label className="alert alert-info ms-1 mt-4">Mesajınızı iletmek için sisteme Giriş Yapmalısınız!</label>
