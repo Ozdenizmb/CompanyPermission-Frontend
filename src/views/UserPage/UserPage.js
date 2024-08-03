@@ -184,17 +184,24 @@ const UserPage = () => {
                             <MDBCardText className="text-muted">{user.phoneNumber || "Belirtilmedi"}</MDBCardText>
                         </MDBCol>
                         </MDBRow>
-                        <hr />
-                        <MDBRow>
-                        <MDBCol sm="3">
-                            <MDBCardText>Doğum Günü</MDBCardText>
-                        </MDBCol>
-                        <MDBCol sm="9">
-                            <MDBCardText className="text-muted">{user.birthday || "Belirtilmedi"}</MDBCardText>
-                        </MDBCol>
-                        </MDBRow>
-                        <hr />
-                        {statuses === "ADMIN" && 
+                        {((statuses === "ADMIN" && storeEmail != email) || statuses !== "ADMIN") &&
+                        <div>
+                            <hr />
+                            <MDBRow>
+                            <MDBCol sm="3">
+                                <MDBCardText>Doğum Günü</MDBCardText>
+                            </MDBCol>
+                            <MDBCol sm="9">
+                                <MDBCardText className="text-muted">{user.birthday || "Belirtilmedi"}</MDBCardText>
+                            </MDBCol>
+                            </MDBRow>
+                        </div>
+                        }
+                        
+                        
+                        {(statuses === "ADMIN" && storeEmail == email) && 
+                        <div>
+                            <hr />
                             <MDBRow>
                             <MDBCol sm="3">
                                 <MDBCardText>Rol</MDBCardText>
@@ -203,8 +210,11 @@ const UserPage = () => {
                                 <MDBCardText className="text-muted">{user.role || "Belirtilmedi"}</MDBCardText>
                             </MDBCol>
                             </MDBRow>
+                        </div>
                         }
-                        {statuses !== "ADMIN" && 
+                        {((statuses === "ADMIN" && storeEmail != email) || statuses !== "ADMIN") && 
+                        <div>
+                            <hr />
                             <MDBRow>
                             <MDBCol sm="3">
                                 <MDBCardText>Departman</MDBCardText>
@@ -213,16 +223,23 @@ const UserPage = () => {
                                 <MDBCardText className="text-muted">{user.department || "Belirtilmedi"}</MDBCardText>
                             </MDBCol>
                             </MDBRow>
+                        </div>
                         }
-                        <hr />
-                        <MDBRow>
-                        <MDBCol sm="3">
-                            <MDBCardText>Biyografi</MDBCardText>
-                        </MDBCol>
-                        <MDBCol sm="9">
-                            <MDBCardText className="text-muted">{user.biography || "Belirtilmedi"}</MDBCardText>
-                        </MDBCol>
-                        </MDBRow>
+                        
+                        {((statuses === "ADMIN" && storeEmail != email) || statuses !== "ADMIN") &&
+                        <div>
+                            <hr />
+                            <MDBRow>
+                            <MDBCol sm="3">
+                                <MDBCardText>Biyografi</MDBCardText>
+                            </MDBCol>
+                            <MDBCol sm="9">
+                                <MDBCardText className="text-muted">{user.biography || "Belirtilmedi"}</MDBCardText>
+                            </MDBCol>
+                            </MDBRow>
+                        </div>
+                        }
+                        
                     </MDBCardBody>
                     </MDBCard>
 
